@@ -1,5 +1,6 @@
 package org.upgrad.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -34,19 +35,12 @@ public class Restaurant {
     @JoinColumn(name = "addressId")
     private Address address;
 
-
-    @ManyToMany(cascade = CascadeType.ALL)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinTable(name = "restaurant_item", joinColumns = @JoinColumn(name = "itemId"), inverseJoinColumns = @JoinColumn(name = "restaurantId"))
-    private List<Item> items =  new ArrayList<Item>();
-
-
+    @JsonIgnore
    @ManyToMany(cascade = CascadeType.ALL)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinTable(name = "restaurant_category", joinColumns = @JoinColumn(name = "restaurantId"), inverseJoinColumns = @JoinColumn(name = "categoryId"))
 
-   /* @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "category_id")*/
+
     private List<Category> categories = new ArrayList<Category>();
 
     public Integer getId() {
@@ -104,14 +98,6 @@ public class Restaurant {
     public void setPhotoUrl(String photoUrl) {
         this.photoUrl = photoUrl;
     }
-
-   /* public List<Item> getItems() {
-        return items;
-    }
-
-    public void setItems(List<Item> items) {
-        this.items = items;
-    }*/
 
     public List<Category> getCategories() {
         return categories;

@@ -99,7 +99,7 @@ public class RestaurantServiceImpl implements RestaurantService{
             Collections.sort(categories, Util.categoryComparator);
 
             for(Category category : categories) {
-                        Set<Item> items = category.getItems();
+                        Set<Item> items = itemRepository.getItemsByCategoryAndRestaurant(restaurantDetails.getId(),category.getId());
                         CategoryResponse categoryResponse = new CategoryResponse(category.getId(), category.getCategoryName(), items);
                         categorySet.add(categoryResponse);
                     }
